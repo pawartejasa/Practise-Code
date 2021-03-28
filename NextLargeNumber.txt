@@ -1,0 +1,117 @@
+#include <iostream>
+
+class Node{
+public:
+    int data;
+    Node *next;
+    Node(int data){
+        this -> data = data;
+        this -> next = NULL;
+    }
+};
+class carry{
+    public:
+    int val;
+    Node *head;
+    carry(int val, Node *head){
+        this -> val = val;
+        this ->  head = head;
+    }
+};
+using namespace std;
+carry carryforward(Node *head){
+    if(head==NULL){
+        
+        int val=0;
+        carry c(val, head);
+        return c;
+    }
+    carry ans=carryforward(head->next);
+    if(head->next==NULL){
+        head->data=head->data + 1;
+        if(head->data>9){
+            head->data=head->data%10;
+            ans.val=1;
+            ans.head=head;
+            return ans;
+    }
+    
+    }       
+    if(ans.val==1){
+        head->data=head->data+1;
+        if(head->data>9){
+            head->data=head->data%10;
+            ans.val=1;
+            ans.head=head;
+            return ans;
+        }
+        else{
+        ans.val=0;
+        ans.head=head;
+        return ans;
+    }
+    
+    }
+    
+    ans.head=head;
+    return ans;
+}
+Node* NextLargeNumber(Node *head) {
+    if(head==NULL){
+        return head;
+    }
+    else if(head->next==NULL){
+        head->data=head->data+1;
+        return head;
+    }
+    carry c1= carryforward(head);
+    if(c1.val==1){
+        Node *newnode=new Node(1);
+        newnode->next=head;
+        head=newnode;
+    }
+    else{
+    head=c1.head;
+    }
+    return head;
+}
+
+
+Node* takeinput() {
+    int data;
+    cin >> data;
+    Node* head = NULL, *tail = NULL;
+    while(data != -1){
+        Node *newNode = new Node(data);
+        if(head == NULL)                  {
+            head = newNode;
+            tail = newNode;
+        }
+        else{
+            tail -> next = newNode;
+            tail = newNode;
+        }
+        cin >> data;
+    }
+    return head;
+}
+
+void print(Node *head) {
+    Node *temp = head;
+    while(temp != NULL) {
+        cout << temp -> data << " ";
+        temp = temp -> next;
+    }
+    cout<<endl;
+}
+
+int main() {
+    Node *head = takeinput();
+    
+    head = NextLargeNumber(head);
+    print(head);
+    return 0;
+}
+
+
+
