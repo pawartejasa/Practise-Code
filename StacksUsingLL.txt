@@ -1,0 +1,92 @@
+#include <iostream>
+
+class ListNode
+{
+public:
+	int val;
+	ListNode *next;
+	ListNode(int val)
+	{
+		this->val = val;
+		this->next = NULL;
+	}
+};
+
+using namespace std;
+ListNode *takeinput()
+{
+	int val;
+	cin >> val;
+	ListNode *head = NULL, *tail = NULL;
+	while (val != -1)
+	{
+		ListNode *newListNode = new ListNode(val);
+		if (head == NULL)
+		{
+			head = newListNode;
+			tail = newListNode;
+		}
+		else
+		{
+			tail->next = newListNode;
+			tail = newListNode;
+		}
+		cin >> val;
+	}
+	return head;
+}
+bool checkall0(ListNode *head){
+    
+    while(head!=NULL){
+        if(head->val!=0){
+            return false;
+        }
+        head=head->next;
+    }
+    return true;
+}
+ListNode* swapPairsRec(ListNode *head){
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    ListNode *head1=head;
+    ListNode *head2=head->next;
+    ListNode *head3=head2->next;
+    ListNode *ans=swapPairsRec(head3);
+    ListNode *temp=ans;
+    head2->next=head1;
+    head1->next=temp;
+    head=head2;
+    
+    return head;
+}
+ListNode* swapPairs(ListNode *head){
+    if(head==NULL || head->next==NULL){
+        return head;
+    }
+    
+    
+    ListNode *ans=swapPairsRec(head);
+    return ans;
+    
+}
+void print(ListNode *head)
+{
+	ListNode *temp = head;
+	while (temp != NULL)
+	{
+		cout << temp->val << " ";
+		temp = temp->next;
+	}
+	cout << endl;
+}
+
+int main()
+{
+	
+		ListNode *head1 = takeinput();
+		ListNode *sum= swapPairs(head1);
+		print(sum);
+	
+	return 0;
+}

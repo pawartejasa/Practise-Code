@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+int* stockSpan(int *price, int size)  {
+	queue<int> q;
+    int size1=size;
+    if(size==0){
+        return 0;
+    }
+    for (int i = 0, val; i < size; i++) {
+        int val=input[i];
+        q.push(val);
+        }
+        int *arr=new int[size];
+        int index=0;
+        int top;
+    while(!q.empty()){
+        if(index==0){
+        arr[index]=1;
+        index++;
+        continue;
+        }
+        top=q.front();
+        q.pop;
+        else if(top<q.front()){
+            
+        }
+        
+        
+    }
+}
+
+        
+int main() {
+    int size;
+    cin >> size;
+
+    int *input = new int[size];
+    for (int i = 0; i < size; i++) {
+        cin >> input[i];
+    }
+
+    int *output = stockSpan(input, size);
+    for (int i = 0; i < size; i++) {
+        cout << output[i] << " ";
+    }
+
+    cout << "\n";
+
+    delete[] input;
+    delete[] output;
+}

@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+class Node {
+   public:
+    int data;
+    Node *next;
+
+    Node(int data) {
+        this->data = data;
+        next = NULL;
+    }
+};
+class Queue {
+    Node *head;
+	Node *tail;
+	int size;
+   public:
+    Queue() {
+		head=NULL;
+		tail=NULL;
+		size=0;
+	}
+	int getSize() {
+	        return size;
+	}
+
+    bool isEmpty() {
+		return size==0;
+	}
+
+    void enqueue(int data) {
+        Node *newNode= new Node(data);
+		if(head==NULL){
+		    head=newNode;
+		    tail=newNode;
+		}
+		else{
+		    tail->next=newNode;
+		    tail=tail->next;
+		}
+		size++;
+	}
+
+    int dequeue() {
+        if(head==NULL){
+            return -1;
+        }
+        Node *newele=head;
+        int ans=newele->data;
+        delete newele;
+        head=head->next;
+        size--;
+        return ans;
+    }
+
+    int front() {
+        if(head==NULL){
+            return -1;
+        }
+        return head->data;
+    }
+};
+
+
+int main() {
+    Queue q;
+    q.enqueue(12);
+    q.enqueue(14);
+    q.enqueue(16);
+    q.enqueue(18);
+    q.enqueue(20);
+    cout << q.dequeue() << "\n";
+    cout << q.dequeue() << "\n";
+    cout << q.dequeue() << "\n";
+    cout << q.front() << "\n";
+    cout << q.getSize() << "\n";
+    cout << ((q.isEmpty()) ? "true\n" : "false\n");
+    Queue s=q;
+    cout << s.front() << "\n";
+    cout << s.getSize() << "\n";
+    
+             
+}
