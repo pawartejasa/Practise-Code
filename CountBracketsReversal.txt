@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+using namespace std;
+#include <stack>
+int countBracketReversals(string input) {
+	int len=input.length();
+	if(len%2!=0){
+	    return -1;
+	}
+	stack<char> s1;
+	int i=0;
+	while(i<len){
+	   if(input[i]==123){
+	        s1.push(input[i]);
+	    }
+	    else if(s1.empty()&& input[i]==125){
+	        s1.push(input[i]);
+	    }
+	    else if(input[i]==125&& !s1.empty()&&s1.top()==125){
+	        s1.push(input[i]);
+	    }
+	    else if(input[i]==125&& !s1.empty()&&s1.top()==123){
+	        s1.pop();
+	    }
+	    i++;
+	}
+	char c1,c2;
+	int count=0;
+	while(!s1.empty()){
+	    c1=s1.top();
+	    s1.pop();
+	    c2=s1.top();
+	     s1.pop();
+	     
+	     if(c1==c2){
+	         count++;
+	     }
+	     else{
+	         count=count+2;
+	     }
+	}
+	return count;
+}
+int main() {
+    string input;
+    cin >> input;
+    cout << countBracketReversals(input);
+}
