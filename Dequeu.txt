@@ -1,0 +1,175 @@
+#include<iostream>
+using namespace std;
+class Deque {
+    // Complete this class
+    public:
+    int *data;
+    int size;
+    int capacity;
+    int front;
+    int rear;
+    Deque(int amt){
+        data=new int [amt];
+        size=0;
+        capacity=amt;
+        front=-1;
+        rear=0;
+    }
+    void insertFront(int val){
+        if(size == capacity){
+            cout<<"-1"<<endl;
+            return;
+        }
+        else if(front == -1){
+            front=0;
+            rear=0;
+            data[front]=val;
+            size++;
+            return;
+        }
+        else if(front==0){
+            front=capacity-1;
+            data[front]=val;
+            //front=front-1;
+            size++;
+            return;
+        }
+        else if(front==capacity-1){
+            front=front-1;
+            data[front]=val;
+            size++;
+            return;
+        }
+        else if(front>0 && front<capacity-1){
+            front=front-1;
+            data[front]=val;
+            size++;
+            return;
+        }
+    }
+    void insertRear(int val){
+        if(size == capacity){
+            cout<<"-1"<<endl;
+            return;
+        }
+        else if(rear == -1){
+            rear=0;
+            front=0;
+            data[rear]=val;
+            size++;
+            return;
+        }
+        else if(rear==0){
+            rear=1;
+            data[rear]=val;
+            //front=front-1;
+            size++;
+            return;
+        }
+        else if(rear==capacity-1){
+            rear=0;
+            data[rear]=val;
+            size++;
+            return;
+        }
+        else if(rear>0 && rear<capacity-1){
+            rear=rear+1;
+            data[rear]=val;
+            size++;
+            return;
+        }
+    }
+    void deleteFront(){
+        if(size==0){
+            cout<<"-1"<<endl;
+            return;
+            }
+        else if(size==1){
+            front=-1;
+            rear=-1;
+            return;
+        }
+        else if(front==capacity-1){
+            front=0;
+            size--;
+            return;
+        }
+        else if(front>=0 && front<capacity-1){
+            front=front+1;
+            size--;
+            return;
+        }
+    }
+    void deleteRear(){
+        if(size==0){
+            cout<<"-1"<<endl;
+            return;
+            }
+        else if(size==1){
+            front=-1;
+            rear=-1;
+            return;
+        }
+        else if(rear==0){
+            rear=capacity-1;
+            size--;
+            return;
+        }
+        else if(rear>0 && rear<=capacity-1){
+            rear=rear-1;
+            size--;
+            return;
+        }
+    }
+    int getFront(){
+        if(front==-1 || size==0){
+            return -1;
+        }
+        return data[front];
+    }
+    int getRear(){
+        if(rear==-1 || size==0){
+            return -1;
+        }
+        return data[rear];
+    }
+};
+
+
+// Driver program to test above function
+int main()
+{
+    Deque dq(10);
+    int choice,input;
+    cout << dq.getRear() << "\n";
+    dq.insertFront(10);
+    dq.insertFront(20);
+    dq.insertFront(30);
+    dq.insertFront(40);
+    cout << dq.getFront() << "\n";
+    dq.insertFront(50);
+    cout << dq.getFront() << "\n";
+    cout << dq.getRear() <<"***"<< "\n";
+    dq.insertRear(10);
+    cout << dq.getRear() << "\n";
+    cout << dq.getFront() << "\n";
+    dq.insertRear(20);
+    dq.insertRear(30);
+    dq.insertRear(40);
+    dq.insertRear(50);
+    dq.insertFront(50);
+    dq.deleteFront();
+    dq.deleteFront();
+    dq.deleteRear();
+    dq.deleteRear();
+    dq.deleteRear();
+    dq.deleteRear();
+    dq.deleteRear();
+    dq.deleteRear();
+    cout<<dq.rear<<"%"<<endl;
+    cout << dq.getFront() << "\n";
+    cout << dq.getRear() << "\n";
+    
+    
+    return 0;
+}
